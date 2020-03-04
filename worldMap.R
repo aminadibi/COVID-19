@@ -23,8 +23,8 @@ library(dplyr)
 
 time_series_19_covid_Confirmed <- read_csv("csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv")
 View(time_series_19_covid_Confirmed)
-raw <- time_series_19_covid_Confirmed %>% rename (name = "Country/Region", covidCount =  "2/27/20") %>% group_by(name) %>%
-      summarise_at(vars(`3/2/20`:covidCount), sum, na.rm = TRUE) %>% mutate(name = replace(name, name == "US", "United States")) %>%
+raw <- time_series_19_covid_Confirmed %>% rename (name = "Country/Region", covidCount =  "3/2/20") %>% group_by(name) %>%
+      summarise_at(vars(`2/2/20`:covidCount), sum, na.rm = TRUE) %>% mutate(name = replace(name, name == "US", "United States")) %>%
       mutate(name = replace(name, name == "UK", "United Kingdom")) %>% mutate(name = replace(name, name == "Mainland China", "China"))
 
 iran <- raw %>% filter (name == "Iran")
@@ -39,7 +39,7 @@ derivative <- function(sites) {
 }  
 
 sites <- derivative(raw)
-write.csv(sites,'covidFirstOrder28-02.csv')
+# write.csv(sites,'covidFirstOrder28-02.csv')
 
 # merging datasets
 
